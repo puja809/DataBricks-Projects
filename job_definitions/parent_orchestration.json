@@ -1,0 +1,41 @@
+{
+  "job_id": 922617881108194,
+  "settings": {
+    "name": "Ecommerce Medallion Parent Orchestration",
+    "email_notifications": {},
+    "webhook_notifications": {},
+    "timeout_seconds": 0,
+    "max_concurrent_runs": 1,
+    "tasks": [
+      {
+        "task_key": "run_notebook_orchestration",
+        "run_if": "ALL_SUCCESS",
+        "run_job_task": {
+          "job_id": 358301205938167
+        },
+        "timeout_seconds": 0,
+        "email_notifications": {},
+        "disabled": false
+      },
+      {
+        "task_key": "run_table_orchestration",
+        "depends_on": [
+          {
+            "task_key": "run_notebook_orchestration"
+          }
+        ],
+        "run_if": "ALL_SUCCESS",
+        "run_job_task": {
+          "job_id": 1005678434195042
+        },
+        "timeout_seconds": 0,
+        "email_notifications": {},
+        "disabled": false
+      }
+    ],
+    "format": "MULTI_TASK",
+    "queue": {
+      "enabled": true
+    }
+  }
+}
